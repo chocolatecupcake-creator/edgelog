@@ -38,7 +38,10 @@ export default function LoginPage() {
         redirectTo: `${location.origin}/auth/callback`,
       },
     })
-    if (error) console.log(error)
+    if (error) {
+      console.log(error)
+      setMessage({ type: 'error', text: error.message })
+    }
   }
 
   return (
