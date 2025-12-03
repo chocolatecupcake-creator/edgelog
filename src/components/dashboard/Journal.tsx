@@ -40,17 +40,21 @@ export const Journal = ({
   const [annoModal, setAnnoModal] = useState<{ isOpen: boolean, id: number | string | null, x: number, y: number, text: string, category: 'entry' | 'exit' | 'mgmt' | 'general', tagType: string, tagValue: string }>({ isOpen: false, id: null, x: 0, y: 0, text: '', category: 'general', tagType: '', tagValue: '' });
   const [barCalc, setBarCalc] = useState({ start: "09:30", tf: 5 });
   const [aiAnalysis, setAiAnalysis] = useState<{ loading: boolean, result: string | null }>({ loading: false, result: null });
+  const [includeChart, setIncludeChart] = useState(false);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
   const handleAiAnalyze = async () => {
     if (!selectedTrade) return;
     setAiAnalysis({ loading: true, result: null });
 
-    // Check if user is configured (we can't easily check auth here without passing user down,
-    // but the server action will fail or we can just try)
-    // Actually server action doesn't check auth yet, but requires API key.
+    const tradePayload = { ...selectedTrade };
 
-    const response = await analyzeTrade(selectedTrade);
+    // If not including chart or no chart exists, remove it to save bandwidth/tokens
+    if (!includeChart || !tradePayload.chartImage) {
+        delete (tradePayload as any).chartImage;
+    }
+
+    const response = await analyzeTrade(tradePayload, includeChart);
     if (response.success) {
         setAiAnalysis({ loading: false, result: response.text || "" });
     } else {
@@ -536,13 +540,26 @@ export const Journal = ({
                            <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-2 print:text-black">
                                <Bot className="w-4 h-4" /> AI Coach
                            </h3>
-                           <button
-                             onClick={handleAiAnalyze}
-                             disabled={aiAnalysis.loading}
-                             className="text-[10px] font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded transition disabled:opacity-50 print:hidden"
-                           >
-                               {aiAnalysis.loading ? 'Thinking...' : 'Analyze Trade'}
-                           </button>
+                           <div className="flex items-center gap-2">
+                               {selectedTrade.chartImage && (
+                                   <label className="flex items-center gap-1 cursor-pointer select-none">
+                                       <input
+                                           type="checkbox"
+                                           checked={includeChart}
+                                           onChange={(e) => setIncludeChart(e.target.checked)}
+                                           className="w-3 h-3 rounded bg-slate-800 border-slate-600 text-indigo-500 focus:ring-0"
+                                       />
+                                       <span className="text-[10px] text-slate-400">Include Chart</span>
+                                   </label>
+                               )}
+                               <button
+                                 onClick={handleAiAnalyze}
+                                 disabled={aiAnalysis.loading}
+                                 className="text-[10px] font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded transition disabled:opacity-50 print:hidden"
+                               >
+                                   {aiAnalysis.loading ? 'Thinking...' : 'Analyze Trade'}
+                               </button>
+                           </div>
                        </div>
                        {aiAnalysis.result ? (
                            <div className="text-xs text-slate-300 leading-relaxed whitespace-pre-wrap print:text-black">

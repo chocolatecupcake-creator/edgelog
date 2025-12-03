@@ -46,6 +46,8 @@ A template has been created for you. Ensure it contains the following keys:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 GOOGLE_GEMINI_API_KEY=your_gemini_api_key
+# Optional: Specify AI Model (defaults to gemini-2.5-flash)
+GOOGLE_GEMINI_MODEL=gemini-2.5-pro
 ```
 
 ### 3. Database Setup (Supabase)
