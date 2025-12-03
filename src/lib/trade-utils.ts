@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Types for TradeScribe
+// Types for EdgeLog
 export interface Trade {
   id: string;
   instrument: string;

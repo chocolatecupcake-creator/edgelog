@@ -10,7 +10,7 @@ import { ImportWizard } from '@/components/dashboard/ImportWizard';
 import { Trade, TradeConfig, DEFAULT_CONFIG, generateDemoData, processImport, processCompletedTrades, parseCSVLine } from "@/lib/trade-utils";
 import { createClient } from '@/lib/supabase/client';
 
-export default function TradeScribe() {
+export default function EdgeLog() {
   const [view, setView] = useState('journal');
   const [user, setUser] = useState<any>(null);
   const supabase = createClient();
@@ -23,7 +23,7 @@ export default function TradeScribe() {
     // Initial Load from LocalStorage for Guest Mode or Config
     // We do this here to avoid hydration mismatch
     try {
-        const saved = localStorage.getItem('tradeScribeData');
+        const saved = localStorage.getItem('edgeLogData');
         if (saved) {
             const parsed = JSON.parse(saved);
             // Only set trades if we are not going to fetch from user (will check user in another effect, but for guest start it's fine)
@@ -220,7 +220,7 @@ export default function TradeScribe() {
   }, [trades]);
 
   const handleManualSave = () => {
-      localStorage.setItem('tradeScribeData', JSON.stringify({ trades, config }));
+      localStorage.setItem('edgeLogData', JSON.stringify({ trades, config }));
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
   };
@@ -311,7 +311,7 @@ export default function TradeScribe() {
           }
       } else {
           // Local Storage Fallback
-          localStorage.setItem('tradeScribeData', JSON.stringify({ trades, config }));
+          localStorage.setItem('edgeLogData', JSON.stringify({ trades, config }));
           setIsTradeSaved(true);
           setTimeout(() => setIsTradeSaved(false), 2000);
       }

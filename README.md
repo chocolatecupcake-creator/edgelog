@@ -1,6 +1,6 @@
-# TradeScribe Pro
+# EdgeLog Pro
 
-TradeScribe Pro is an advanced, AI-powered trading journal designed to help traders track, analyze, and improve their performance. It features a modern Next.js architecture, secure cloud sync via Supabase, and an AI Coach powered by Google Gemini.
+EdgeLog Pro is an advanced, AI-powered trading journal designed to help traders track, analyze, and improve their performance. It features a modern Next.js architecture, secure cloud sync via Supabase, and an AI Coach powered by Google Gemini.
 
 ## Features
 
@@ -34,7 +34,7 @@ Before you begin, ensure you have:
 ### 1. Clone & Install
 ```bash
 git clone <repository-url>
-cd tradescribe
+cd edgelog
 npm install
 ```
 

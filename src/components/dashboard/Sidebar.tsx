@@ -25,7 +25,7 @@ export const Sidebar = ({ view, setView, isSaved, onLoadDemo, onImport, onPrint,
       <aside className="w-16 lg:w-64 bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-30 no-print">
         <div className="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-800">
           <BookOpen className="text-indigo-500 w-6 h-6" />
-          <h1 className="hidden lg:block text-lg font-bold text-white tracking-tight ml-2">Trade<span className="text-indigo-500">Scribe</span> Pro</h1>
+          <h1 className="hidden lg:block text-lg font-bold text-white tracking-tight ml-2">Edge<span className="text-indigo-500">Log</span> Pro</h1>
         </div>
 
         <nav className="p-2 lg:p-4 space-y-2 flex-grow">
